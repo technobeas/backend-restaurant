@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title>HomePage</title>
+
+    <style>
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+        gap: 1.5rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <%- include('./partials/nav') %>
+
+    <!-- Blog List -->
+    <% if(locals.user){ %>
+    <div class="container mt-4">
+      <div class="blog-grid">
+        <% blogs.forEach((blog) => { %>
+
+        <div class="card shadow-sm">
+          <img
+            src="<%= blog.coverImageURL %>"
+            class="card-img-top"
+            alt="<%= blog.title %>"
+          />
+
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title"><%= blog.title %></h5>
+
+            <div class="mt-auto">
+              <a href="/blog/<%= blog._id %>" class="btn btn-primary w-100">
+                View Blog
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <% }) %> <% } else { %>
+        <h3>Sign In To See The Blogs</h3>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <%- include('./partials/scripts') %>
+  </body>
+</html>
