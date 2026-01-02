@@ -40,11 +40,27 @@ exports.login = async (req, res) => {
     //     user,
     //   });
 
+    // below working on pc but not on mobile
+  //   res
+  // .cookie("token", token, {
+  //   httpOnly: true,
+  //   secure: true,        // REQUIRED on HTTPS (Render)
+  //   sameSite: "none",    // REQUIRED for cross-site cookies
+  //   maxAge: 24 * 60 * 60 * 1000,
+  // })
+  // .status(200)
+  // .json({
+  //   success: true,
+  //   message: "Login successful",
+  //   user,
+  // });
+
+    // new testing
     res
   .cookie("token", token, {
     httpOnly: true,
-    secure: true,        // REQUIRED on HTTPS (Render)
-    sameSite: "none",    // REQUIRED for cross-site cookies
+    secure: process.env.NODE_ENV === "production", // only required on prod HTTPS
+    sameSite: "none", // lowercase is critical
     maxAge: 24 * 60 * 60 * 1000,
   })
   .status(200)
@@ -53,6 +69,7 @@ exports.login = async (req, res) => {
     message: "Login successful",
     user,
   });
+
  
   } catch (error) {
     res.status(500).json({ message: "Server error" });
