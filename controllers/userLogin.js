@@ -26,19 +26,34 @@ exports.login = async (req, res) => {
     // generate token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
+    // res
+    //   .cookie("token", token, {
+    //     httpOnly: true,
+    //     // secure: process.env.NODE_ENV === "production",
+    //     sameSite: "lax",
+    //     maxAge: 24 * 60 * 60 * 1000, // 1 day
+    //   })
+    //   .status(201)
+    //   .json({
+    //     success: true,
+    //     message: "Login successful",
+    //     user,
+    //   });
+
     res
-      .cookie("token", token, {
-        httpOnly: true,
-        // secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        maxAge: 24 * 60 * 60 * 1000, // 1 day
-      })
-      .status(201)
-      .json({
-        success: true,
-        message: "Login successful",
-        user,
-      });
+  .cookie("token", token, {
+    httpOnly: true,
+    secure: true,        // REQUIRED on HTTPS (Render)
+    sameSite: "none",    // REQUIRED for cross-site cookies
+    maxAge: 24 * 60 * 60 * 1000,
+  })
+  .status(200)
+  .json({
+    success: true,
+    message: "Login successful",
+    user,
+  });
+ 
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
@@ -46,10 +61,19 @@ exports.login = async (req, res) => {
 
 exports.logout = (req, res) => {
   try {
-    res.cookie("token", "").json({
-      message: "Logut Succesfull..",
-      success: true,
-    });
+    // res.cookie("token", "").json({
+    //   message: "Logut Succesfull..",
+    //   success: true,
+    // });
+    res.cookie("token", "", {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  expires: new Date(0),
+}).json({
+  success: true,
+  message: "Logout successful",
+});
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
