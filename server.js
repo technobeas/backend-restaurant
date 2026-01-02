@@ -22,6 +22,8 @@ app.use(
       "http://localhost:5173",
       "https://frontend-final-2yf43a53j-technobeas-projects.vercel.app",
       "https://adminrestaurant-chi.vercel.app",
+      "https://adminrestaurant-97j74wjk4-technobeas-projects.vercel.app",
+      "https://frontend-final-nine-blond.vercel.app",
     ],
     credentials: true,
   })
