@@ -17,6 +17,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "https://frontend-final-2yf43a53j-technobeas-projects.vercel.app",
+      "https://adminrestaurant-chi.vercel.app",
     ],
     credentials: true,
   })
