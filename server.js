@@ -9,6 +9,19 @@ const app = express();
 
 app.use(express.json());
 
+// app.use(
+//   cors({
+//     origin: [
+//       "http://localhost:5173",
+//       "https://frontend-final-2yf43a53j-technobeas-projects.vercel.app",
+//       "https://adminrestaurant-chi.vercel.app",
+//       "https://adminrestaurant-97j74wjk4-technobeas-projects.vercel.app",
+//       "https://adminrestaurant-2gdysakw7-technobeas-projects.vercel.app",
+//       "https://frontend-final-nine-blond.vercel.app",
+//     ],
+//   })
+// );
+
 app.use(
   cors({
     origin: [
@@ -19,8 +32,12 @@ app.use(
       "https://adminrestaurant-2gdysakw7-technobeas-projects.vercel.app",
       "https://frontend-final-nine-blond.vercel.app",
     ],
+    credentials: true, // ✅ REQUIRED
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 
 // PUBLIC ROUTES (NO AUTH)
 app.use("/product", require("./routes/A_Product.js"));
